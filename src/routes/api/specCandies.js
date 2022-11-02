@@ -1,25 +1,38 @@
 import { Router } from 'express'
 
+import {
+  getSpecCandies,
+  getSpecCandy,
+  createSpecCandy,
+  updateSpecCandy,
+  deleteSpecCandy,
+} from '../../models/specCandies'
+
 const router = Router()
 
 router.get('/', (req, res) => {
-  res.send({ msg: 'Get Specialty Candies' })
+  const specCandies = getSpecCandies()
+  res.send(specCandies)
 })
 
 router.get('/:id', (req, res) => {
-  res.send({ msg: `Getting Specialty Candy ${req.params.id}` })
+  const specCandy = getSpecCandy(req.params.id)
+  res.send(specCandy)
 })
 
 router.post('/', (req, res) => {
-  res.send({ msg: 'Creating a Specialty Candy' })
+  const newSpecCandy = createSpecCandy(req.body)
+  res.send(newSpecCandy)
 })
 
 router.put('/:id', (req, res) => {
-  res.send({ msg: `Updating Specialty Candy ${req.params.id}` })
+  updateSpecCandy(req.params.id, req.body)
+  res.send({ msg: `Specialty Candy ${req.params.id} Updated` })
 })
 
 router.delete('/:id', (req, res) => {
-  res.send({ msg: `Deleting Specialty Candy ${req.params.id}` })
+  deleteSpecCandy(req.params.id)
+  res.send({ msg: `Specialty Candy ${req.params.id} Deleted` })
 })
 
 export default router
