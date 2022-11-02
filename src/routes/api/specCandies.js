@@ -17,22 +17,34 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const specCandy = getSpecCandy(req.params.id)
-  res.send(specCandy)
+  if (specCandy) {
+    res.send(specCandy)
+  }
+  res.status(404).send({ msg: 'Specialty Candy not found' })
 })
 
 router.post('/', (req, res) => {
   const newSpecCandy = createSpecCandy(req.body)
-  res.send(newSpecCandy)
+  if (newSpecCandy) {
+    res.send(newSpecCandy)
+  }
+  res.status(400).send({ msg: 'Bad request' })
 })
 
 router.put('/:id', (req, res) => {
-  updateSpecCandy(req.params.id, req.body)
-  res.send({ msg: `Specialty Candy ${req.params.id} Updated` })
+  const updatedSpecCandy = updateSpecCandy(req.params.id, req.body)
+  if (updatedSpecCandy) {
+    res.send(updatedSpecCandy)
+  }
+  res.status(404).send({ msg: 'Specialty Candy not found' })
 })
 
 router.delete('/:id', (req, res) => {
-  deleteSpecCandy(req.params.id)
-  res.send({ msg: `Specialty Candy ${req.params.id} Deleted` })
+  const deleted = deleteSpecCandy(req.params.id)
+  if (deleted) {
+    res.send({ msg: `Specialty Candy ${req.params.id} Deleted` })
+  }
+  res.status(404).send({ msg: 'Speciality Candy not found' })
 })
 
 export default router

@@ -11,6 +11,7 @@ export const getSpecCandy = (id) => {
 export const createSpecCandy = (specCandy) => {
   const id = uuid()
   specCandies.push({ id, ...specCandy })
+  return getSpecCandy(id)
 }
 
 export const updateSpecCandy = (id, specCandy) => {
@@ -19,11 +20,14 @@ export const updateSpecCandy = (id, specCandy) => {
     const specCandyIndex = specCandies.findIndex((s) => s.id === id)
     specCandies[specCandyIndex] = { id, ...specCandy }
   }
+  return getSpecCandy(id)
 }
 
 export const deleteSpecCandy = (id) => {
   const specCandyIndex = specCandies.findIndex((s) => s.id === id)
   if (specCandyIndex !== -1) {
     specCandies.splice(specCandyIndex, 1)
+    return true
   }
+  return false
 }
